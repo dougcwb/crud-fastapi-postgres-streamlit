@@ -18,11 +18,11 @@ def get_products(db: Session):
 
 
 def create_product(db: Session, product: ProductCreate):
-    db_product = ProductModel(**product.model_dump())
-    db.add(db_product)
-    db.commit()
-    db.refresh(db_product)
-    return db_product
+    db_product = ProductModel(**product.model_dump()) # transforma view para ORM
+    db.add(db_product) # add na tabela
+    db.commit() # commit na tabela
+    db.refresh(db_product) # refresh do banco
+    return db_product #retorna o item
 
 
 def delete_product(db: Session, product_id: int):
@@ -50,4 +50,5 @@ def update_product(db: Session, product_id: int, product: ProductUpdate):
         db_product.email_fornecedor = product.email_fornecedor
 
     db.commit()
+    db.refresh(db_product) # refresh do banco
     return db_product

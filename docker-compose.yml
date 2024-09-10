@@ -37,8 +37,21 @@ services:
     networks:
       - mynetwork
 
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: "douglaslpereira@gmail.com"
+#      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+#    ports:
+#      - "16543:80"
+#    depends_on:
+#      - postgres
+#    networks:
+#      - mynetwork
+
 networks:
   mynetwork:
 
 volumes:
   postgres_data:
+    driver: bridge

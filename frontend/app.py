@@ -1,12 +1,13 @@
 import streamlit as st
 import requests
 import pandas as pd
+from datetime import date
 
 st.set_page_config(layout="wide")
 
-st.image("logo.png", width=200)
+#st.image("logo.png", width=200)
 
-st.title("Gerenciamento de Produtos")
+#st.title("Gerenciamento de Produtos")
 
 
 # Função auxiliar para exibir mensagens de erro detalhadas
@@ -61,20 +62,29 @@ with st.expander("Visualizar Produtos"):
             product = response.json()
             df = pd.DataFrame(product)
 
-            df = df[
-                [
-                    "id",
-                    "name",
-                    "description",
-                    "price",
-                    "categoria",
-                    "email_fornecedor",
-                    "created_at",
-                ]
-            ]
-
-            # Exibe o DataFrame sem o índice
-            st.write(df.to_html(index=False), unsafe_allow_html=True)
+            st.dataframe(
+                df,
+                column_config={
+                    "id": "ID",
+                    "name": "Nome",
+                    "description": "Descrição",
+                    "price": st.column_config.NumberColumn(
+                        "Valor",
+                        help="Valor do Produto",
+                        format="R$%d",
+                    ),
+                    "categoria": "Categoria",
+                    "email_fornecedor": st.column_config.LinkColumn("Email"),
+                    "created_at": st.column_config.DateColumn(
+                        "Data",
+                        min_value=date(1901, 1, 1),
+                        max_value=date(2105, 1, 1),
+                        format="DD/MM/YYYY",
+                        step=1,
+                    ),
+                },
+                hide_index=True,
+            )
         else:
             show_response_message(response)
 

@@ -20,8 +20,8 @@ Acesse o endereço http://localhost:8000/docs
 
 Pgadmin4:
 Acesse o endereço http://localhost:16543
-Usuário:
-Senha: 
+Usuário: seuemail@gmail.com
+Senha: PgAdmin2019!
 
 ## A estrutura de pastas e arquivos
 

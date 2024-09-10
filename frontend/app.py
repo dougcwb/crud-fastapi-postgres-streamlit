@@ -11,7 +11,6 @@ st.set_page_config(
 #st.image("logo.png", width=200)
 
 st.title("Gerenciamento de Produtos")
-
 # Função auxiliar para exibir mensagens de erro detalhadas
 def show_response_message(response):
     if response.status_code == 200:
@@ -31,8 +30,11 @@ def show_response_message(response):
             st.error("Erro desconhecido. Não foi possível decodificar a resposta.")
 
 
+add, list, details, delete, update = st.tabs(
+    ["Adicionar", "Listar", "Detalhes", "Apagar", "Atualizar"]
+    )
 # Adicionar Produto
-with st.expander("Adicionar um Novo Produto"):
+with add:
     with st.form("new_product"):
         name = st.text_input("Nome do Produto")
         description = st.text_area("Descrição do Produto")
@@ -58,7 +60,7 @@ with st.expander("Adicionar um Novo Produto"):
             show_response_message(response)
 
 # Visualizar Produtos
-with st.expander("Visualizar Produtos"):
+with list:
     if st.button("Exibir Todos os Produtos"):
         response = requests.get("http://backend:8000/products/")
         if response.status_code == 200:
@@ -92,7 +94,7 @@ with st.expander("Visualizar Produtos"):
             show_response_message(response)
 
 # Obter Detalhes de um Produto
-with st.expander("Obter Detalhes de um Produto"):
+with details:
     get_id = st.number_input("ID do Produto", min_value=1, format="%d")
     if st.button("Buscar Produto"):
         response = requests.get(f"http://backend:8000/products/{get_id}")
@@ -118,14 +120,14 @@ with st.expander("Obter Detalhes de um Produto"):
             show_response_message(response)
 
 # Deletar Produto
-with st.expander("Deletar Produto"):
+with delete:
     delete_id = st.number_input("ID do Produto para Deletar", min_value=1, format="%d")
     if st.button("Deletar Produto"):
         response = requests.delete(f"http://backend:8000/products/{delete_id}")
         show_response_message(response)
 
 # Atualizar Produto
-with st.expander("Atualizar Produto"):
+with update:
     with st.form("update_product"):
         update_id = st.number_input("ID do Produto", min_value=1, format="%d")
         new_name = st.text_input("Novo Nome do Produto")

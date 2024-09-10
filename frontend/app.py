@@ -3,12 +3,14 @@ import requests
 import pandas as pd
 from datetime import date
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide", 
+    page_title="Gerenciamento de Produtos - Marketplace"
+    )
 
 #st.image("logo.png", width=200)
 
-#st.title("Gerenciamento de Produtos")
-
+st.title("Gerenciamento de Produtos")
 
 # Função auxiliar para exibir mensagens de erro detalhadas
 def show_response_message(response):
@@ -37,7 +39,7 @@ with st.expander("Adicionar um Novo Produto"):
         price = st.number_input("Preço", min_value=0.01, format="%f")
         categoria = st.selectbox(
             "Categoria",
-            ["Eletrônico", "Eletrodoméstico", "Móveis", "Roupas", "Calçados"],
+            ["Eletrônico", "Eletrodoméstico", "Móveis", "Roupas", "Calçados", "Casa"],
         )
         email_fornecedor = st.text_input("Email do Fornecedor")
         submit_button = st.form_submit_button("Adicionar Produto")
@@ -54,6 +56,7 @@ with st.expander("Adicionar um Novo Produto"):
                 },
             )
             show_response_message(response)
+
 # Visualizar Produtos
 with st.expander("Visualizar Produtos"):
     if st.button("Exibir Todos os Produtos"):
@@ -134,7 +137,7 @@ with st.expander("Atualizar Produto"):
         )
         new_categoria = st.selectbox(
             "Nova Categoria",
-            ["Eletrônico", "Eletrodoméstico", "Móveis", "Roupas", "Calçados"],
+            ["Eletrônico", "Eletrodoméstico", "Móveis", "Roupas", "Calçados", "Casa"],
         )
         new_email = st.text_input("Novo Email do Fornecedor")
 

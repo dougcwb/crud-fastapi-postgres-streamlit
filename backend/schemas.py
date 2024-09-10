@@ -10,6 +10,7 @@ class CategoriaBase(Enum):
     categoria3 = "Móveis"
     categoria4 = "Roupas"
     categoria5 = "Calçados"
+    categoria6 = "Casa"
 
 
 class ProductBase(BaseModel):
